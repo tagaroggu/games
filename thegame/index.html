@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The game</title>
+    <script defer>
+        const now = Date.now();
+        const span = document.querySelector('span');
+        const formatter = new Intl.DateTimeFormat('en', {
+            localeMatcher: "best fit",
+            weekday: "long",
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+            hour:"numeric",
+            minute: "numeric",
+            second: "numeric",
+            timeZoneName: "longGeneric",
+            formatMatcher: "best fit"
+        })
+        let then = localStorage.getItem('TheGame:PreviousLoss');
+
+        span.innerText = then ? formatter.formatRange(Date.parse(then), now) :
+            formatter.format(now);
+
+        localStorage.setItem('TheGame:PreviousLoss', now);
+    </script>
+</head>
+<body>
+    <p>You just lost the game. <span></span></p>
+</body>
+</html>
