@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The game</title>
     <script defer>
-        document.addEventListener('DOMContentLoaded', () => {
-            const now = new Date();
-            const span = document.querySelector('span');
-            const formatter = new Intl.DateTimeFormat('en', {
+        const now = new Date(), 
+            lsPreviousLossKey = 'TheGame:PreviousLoss',
+            then = localStorage.getItem(lsPreviousLossKey),
+            formatter = new Intl.DateTimeFormat('en', {
                 localeMatcher: "best fit",
                 weekday: "long",
                 year: "numeric",
@@ -20,13 +20,14 @@
                 timeZoneName: "longGeneric",
                 formatMatcher: "best fit"
             });
-            let then = localStorage.getItem('TheGame:PreviousLoss');
 
-            span.innerText = then ? formatter.formatRange((new Date(then)), now) :
-                formatter.format(now);
-
-            localStorage.setItem('TheGame:PreviousLoss', now.toISOString());
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelector('span').innerText = then 
+            ? formatter.formatRange((new Date(then)), now)
+            : formatter.format(now);
         });
+
+        localStorage.setItem(lsPreviousLossKey, now.toISOString());
     </script>
 </head>
 <body>
