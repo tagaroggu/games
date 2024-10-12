@@ -6,7 +6,7 @@
     <title>The game</title>
     <script defer>
         document.addEventListener('DOMContentLoaded', () => {
-            const now = Date.now();
+            const now = new Date();
             const span = document.querySelector('span');
             const formatter = new Intl.DateTimeFormat('en', {
                 localeMatcher: "best fit",
@@ -22,10 +22,10 @@
             });
             let then = localStorage.getItem('TheGame:PreviousLoss');
 
-            span.innerText = then ? formatter.formatRange(Date.parse(then), now) :
+            span.innerText = then ? formatter.formatRange((new Date(then)), now) :
                 formatter.format(now);
 
-            localStorage.setItem('TheGame:PreviousLoss', now);
+            localStorage.setItem('TheGame:PreviousLoss', now.toISOString());
         });
     </script>
 </head>
